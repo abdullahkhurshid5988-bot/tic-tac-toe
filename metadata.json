@@ -1,0 +1,6 @@
+{
+  "name": "Tic Tac Toe",
+  "description": "A premium, glassmorphic Tic Tac Toe game with a deep space aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
