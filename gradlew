@@ -34,16 +34,16 @@ while [ -h "$PRG" ] ; do
         *) PRG=`dirname "$PRG"`"/$link" ;;
     esac
 done
-SAVED="$(cd "$(dirname \"$PRG\")" && pwd)"
-cd "$SAVED" || exit
+SAVED="$(cd "$(dirname "$PRG")" && pwd)"
+cd "$SAVED" > /dev/null || exit
 APP_HOME=$(pwd -P) || exit
-cd "$OLDPWD" || exit
+cd "$OLDPWD" > /dev/null || exit
 
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS='\" -Xmx64m -Xms64m \"'
+DEFAULT_JVM_OPTS='-Xmx64m -Xms64m'
 
 # Use the maximum available, or set MAX_FD != maximum.
 MAX_FD="maximum"
@@ -64,7 +64,7 @@ darwin=false
 msys=false
 cygwin=false
 mingw=false
-case \"$(uname)\" in
+case "$(uname)" in
   CYGWIN* )
     cygwin=true
     ;;
@@ -80,32 +80,32 @@ case \"$(uname)\" in
 esac
 
 # Determine the Java command to use to start the JVM.
-if [ -n \"$JAVA_HOME\" ] ; then
-    if [ -x \"$JAVA_HOME/jre/sh/java\" ] ; then
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
         # IBM's JDK on AIX uses strange locations for the executables
         JAVACMD="$JAVA_HOME/jre/sh/java"
     else
         JAVACMD="$JAVA_HOME/bin/java"
     fi
-    if [ ! -x \"$JAVACMD\" ] ; then
-        die \"ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
 
 Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation.\"
+location of your Java installation."
     fi
 else
     JAVACMD="java"
     if ! command -v java >/dev/null 2>&1
     then
-        die \"ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+        die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
 
 Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation.\"
+location of your Java installation."
     fi
 fi
 
 # Increase the maximum file descriptors if we can.
-if ! \"$cygwin\" && ! \"$darwin\" && ! \"$msys\" ; then
+if ! "$cygwin" && ! "$darwin" && ! "$msys" ; then
     case $- in
       *i*) ;;
       *) set -o nounset ;;
@@ -115,21 +115,21 @@ fi
 
 # Escape application args
 save () {
-    for i do printf %s\\n \"$i\" | sed \"s/'/'\\\\\\\\''/g;1s/^/'/;\$s/\$/'\" ; done
-    echo \" \"
+    for i do printf %s\n "$i" | sed "s/'/'\\\\\\\\''/g;1s/^/'/;\$s/\$/'" ; done
+    echo " "
 }
-APP_ARGS=$(save \"$@\")
+APP_ARGS=$(save "$@")
 
 # Collect all arguments for the java command, stacking in reverse order:
 set -- \
-        \"-Dorg.gradle.appname=$APP_BASE_NAME\" \
-        -classpath \"$APP_HOME/gradle/wrapper/gradle-wrapper.jar\" \
+        "-Dorg.gradle.appname=$APP_BASE_NAME" \
+        -classpath "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" \
         org.gradle.wrapper.GradleWrapperMain \
-        \"$APP_ARGS\"
+        "$APP_ARGS"
 
 # by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
-if [ \"$(uname)\" = \"Darwin\" ] && [ \"$HOME\" = \"$PWD\" ] ; then
-    cd \"$(dirname \"$0\")\" || exit
+if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ] ; then
+    cd "$(dirname "$0")" || exit
 fi
 
-exec \"$JAVACMD\" \"$@\"
+exec "$JAVACMD" "$@"
